@@ -50,10 +50,10 @@
     <script>
 
         const quotes = [
-            [2,     'Buongiorno ragazzi'],
-            [4,     'Oggi vi faccio vedere come serviamo i nostri clienti'],
-            [6,     'L\'eleganza'],
-            [30,    'Ragazzi buongiorno, direttamente.'],
+            [1,     'Buongiorno ragazzi'],
+            [3,     'Oggi vi faccio vedere come serviamo i nostri clienti'],
+            [5,     'L\'eleganza'],
+            [29,    'Ragazzi buongiorno, direttamente.'],
             [35,    'Abbiamo sarde e triglie di quelle che scoppiano'],
             [37,    'Mamma mia, e che sono pasticcini? E che sono bigné?'],
             [45,    'Direttamente ragazzi'],
@@ -64,12 +64,12 @@
             [55,    'In particolare a mio zio stefano, che io lo amo più della mia vita'],
             [60,    'La mia famiglia'], 
             [61,    'Buongiorno Rosario'], 
-            [63,    'Buongiorno Benson'], 
+            [63,    'Ciao Benson'], 
             [65,    'Ho portato il pane, il pane ho portato'], 
             [68,    'Abbiamo triglie che sanno come la salsiccia'], 
             [71,    'Direttamente'], 
             [73,    'Poi abbiamo merluzzi, di quelli belli (al solito)'], 
-            [76,    'Muletti, triglie che stanno scoppiando signori e signore'], 
+            [77,    'Muletti, triglie che stanno scoppiando signori e signore'], 
             [82,    'Ragazzi! Ragazzi: GUARDATE (direttamente)'],
             [85,    'Guardate qua (il colore del mare)'], 
             [88,    'Ragazzi non siete su Natural Channel'], 
@@ -79,7 +79,7 @@
             [97,    'Ancora è un boomerang (??) questo pesce, odoratelo'], 
             [99,    'Guardatelo, odoratelo'], 
             [101,   'Direttamente ragazzi ancora che tipo è a mare'], 
-            [103,   'Mamma mia (tipo che è a mare)'], 
+            [104,   'Mamma mia (tipo che è a mare)'], 
             [105,   'Direttamente'], 
             [106,   'lo spettacolo'], 
             [109,   '*Rumore generale*'], 
@@ -88,11 +88,11 @@
             [115,   'Tutto al fondo'], 
             [117,   'Guardate raga, che prelibatezza'], 
             [118,   'Non so se mi spiego, mezze lune, coccillati, filoncini'], 
-            [120,   'DI TUTTO ABBIAMO'], 
+            [122,   'DI TUTTO ABBIAMO'], 
             [125,   'Qualsiasi cosa, tutto a un euro mezzo chilo'], 
-            [128,   'Abbiamo il bronchio del gonzo (direttamente)'], 
-            [129,   'Gamberi che stanno scattiando'], 
-            [130,   'Le seppie che si muovono'], 
+            [130,   'Abbiamo il bronchio del gonzo (direttamente)'], 
+            [131,   'Gamberi che stanno scattiando'], 
+            [132,   'Le seppie che si muovono'], 
             [138,   'Oh guardate, oh guardate, state fermi!! (Le seppie)'], 
             [141,   'Oh stanno scoppiando, prendi le seppie!'],
             [146,   'I calamari, quelli belli'], 
@@ -143,20 +143,16 @@
             [261,   'Una buona giornata ragazzi']
         ]
 
-        // 1:50
-
-        const displayQuotes = () => {
-            const $quoteLabel = document.getElementById('quote');
-            quotes.forEach(quote => {
-                const q = quote[1];
-                const s = quote[0];
-                setTimeout(() => $quoteLabel.innerHTML = q, s * 1000);
-            });
-        }
-
-
+        const quoteMap = new Map(quotes); 
+        const $quoteLabel = document.getElementById('quote');
         const $player = document.getElementById('player');
-        $player.addEventListener('play', (event) => displayQuotes());
+
+        setInterval(() => {
+            const currentSeconds = parseInt($player.currentTime); 
+            if (quoteMap.has(currentSeconds)) 
+                $quoteLabel.innerHTML = quoteMap.get(currentSeconds);
+            console.log(currentSeconds); 
+        }, 1000)
 
     </script>
 
