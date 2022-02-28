@@ -48,7 +48,6 @@
     </div>
 
     <script>
-
         const quotes = [
             [1,     'Buongiorno ragazzi ☀️'],
             [3,     'Oggi vi faccio vedere come serviamo i nostri clienti'],
@@ -146,12 +145,21 @@
         const quoteMap = new Map(quotes); 
         const $quoteLabel = document.getElementById('quote');
         const $player = document.getElementById('player');
-
+        direttamenteCounter = 0;
         setInterval(() => {
             const currentSeconds = parseInt($player.currentTime); 
-            if (quoteMap.has(currentSeconds)) 
-                $quoteLabel.innerHTML = quoteMap.get(currentSeconds);
-            console.log(currentSeconds); 
+            if (quoteMap.has(currentSeconds)) {
+                quote = quoteMap.get(currentSeconds);
+                if(quote.toLowerCase().includes('direttamente'.toLowerCase())) {
+                    $player.width+=20;
+                    $player.height+=14;
+                    // find and replace all matches of direttamente with bolded in quote preserving case using group
+                    quote = quote.replace(/(direttamente)/gi, '<b>✨$1✨</b>');
+                    // find all occurences of direttamente and increase counter for each of them
+                    direttamenteCounter += quote.match(/(direttamente)/gi).length;
+                }
+                $quoteLabel.innerHTML = quote;
+            }
         }, 1000)
 
     </script>
