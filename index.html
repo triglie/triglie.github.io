@@ -19,25 +19,146 @@
             height: 100vh;
             width: 100vw;
             display: flex;
-            flex-direction:     column;
-            justify-content:    center;
-            justify-items:      center;
-            align-items:        center;
-
+            flex-direction: column;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
         }
+
+        #quote {
+            font-size: large;
+            width: 400px;
+            padding: 3px; 
+            text-align: center;
+        }
+
     </style>
 
     <div class="box">
 
         <h1>Triglie 🐠</h1>
         <div>
-            <video width="400" height="300" loop preload autoplay controls>
+            <video id="player" width="400" height="300" loop preload autoplay controls>
                 <source src="./assets/triglie.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video> 
+                Your browser does not support the video tag.
+            </video>
         </div>
+        <p id="quote">Trascrizione</p>
 
     </div>
+
+    <script>
+
+        const quotes = [
+            [2,     'Buongiorno ragazzi'],
+            [4,     'Oggi vi faccio vedere come serviamo i nostri clienti'],
+            [6,     'L\'eleganza'],
+            [30,    'Ragazzi buongiorno, direttamente.'],
+            [35,    'Abbiamo sarde e triglie di quelle che scoppiano'],
+            [37,    'Mamma mia, e che sono pasticcini? E che sono bigné?'],
+            [45,    'Direttamente ragazzi'],
+            [47,    '*entusiasmo generale* Questa volta non c\'è bisogno che lo salutiamo'],
+            [50,    'abbiamo anche Mario Benzon'],
+            [52,    'Ciao raga'],
+            [54,    'Un saluto a tutti gli amici di Facebook'], 
+            [55,    'In particolare a mio zio stefano, che io lo amo più della mia vita'],
+            [60,    'La mia famiglia'], 
+            [61,    'Buongiorno Rosario'], 
+            [63,    'Buongiorno Benson'], 
+            [65,    'Ho portato il pane, il pane ho portato'], 
+            [68,    'Abbiamo triglie che sanno come la salsiccia'], 
+            [71,    'Direttamente'], 
+            [73,    'Poi abbiamo merluzzi, di quelli belli (al solito)'], 
+            [76,    'Muletti, triglie che stanno scoppiando signori e signore'], 
+            [82,    'Ragazzi! Ragazzi: GUARDATE (direttamente)'],
+            [85,    'Guardate qua (il colore del mare)'], 
+            [88,    'Ragazzi non siete su Natural Channel'], 
+            [91,    '(guardate a Mario Benson)'], 
+            [92,    'Questa è la botique del pesce, direttamente'],
+            [94,    'Direttamente, diretto ragazzi'], 
+            [97,    'Ancora è un boomerang (??) questo pesce, odoratelo'], 
+            [99,    'Guardatelo, odoratelo'], 
+            [101,   'Direttamente ragazzi ancora che tipo è a mare'], 
+            [103,   'Mamma mia (tipo che è a mare)'], 
+            [105,   'Direttamente'], 
+            [106,   'lo spettacolo'], 
+            [109,   '*Rumore generale*'], 
+            [111,   'Raga io ho portato il pane'],
+            [113,   'Direttamente con il pane, Mario Benson'],
+            [115,   'Tutto al fondo'], 
+            [117,   'Guardate raga, che prelibatezza'], 
+            [118,   'Non so se mi spiego, mezze lune, coccillati, filoncini'], 
+            [120,   'DI TUTTO ABBIAMO'], 
+            [125,   'Qualsiasi cosa, tutto a un euro mezzo chilo'], 
+            [128,   'Abbiamo il bronchio del gonzo (direttamente)'], 
+            [129,   'Gamberi che stanno scattiando'], 
+            [130,   'Le seppie che si muovono'], 
+            [138,   'Oh guardate, oh guardate, state fermi!! (Le seppie)'], 
+            [141,   'Oh stanno scoppiando, prendi le seppie!'],
+            [146,   'I calamari, quelli belli'], 
+            [147,   'Ragazzi'], 
+            [148,   'Tagliate ad anelli sono la fine del mondo'], 
+            [151,   'Guardate queste seppie che nero che hanno (direttamente)'], 
+            [154,   'Guardate ragazzi'],
+            [156,   'Guardate che nero hanno queste seppie'], 
+            [158,   'Nel frattempo guardate la classide: urla ancora'], 
+            [163,   'MAMMA MIA'], 
+            [165,   'E\' uscita di fuori, signori e SIGNORI'], 
+            [168,   'Ragazzi, direttamente'], 
+            [169,   'Chi si deve fare la pasta col nero di seppia,'], 
+            [171,   'Deve venire qua'], 
+            [172,   'Direttamente'], 
+            [176,   'Potete dipingerci i palazzi, direattemnte (x2)'], 
+            [179,   'Poi abbiamo, direttamente, ragazzi'], 
+            [182,   'Poi un gambero che sembra una aragosta'], 
+            [184,   'Non lo dimenticate'], 
+            [185,   'Direttamente'], 
+            [187,   'Poi, per finire abbiamo il puddisino (???)'], 
+            [190,   'Signori Direttamente'], 
+            [192,   'Poi abbiamo i nostri clienti, che ormai vengono'],
+            [195,   'Vengono, direttamente'], 
+            [200,   'Poi scusate, abbiamo dimenticato il prosciutto di Sicilia'], 
+            [201,   'Quello della botique del pesce'], 
+            [203,   'Direttamente per voi, ragazzi'],
+            [205,   'A Fasano'], 
+            [207,   'A Fasano (x2), direttamente'],
+            [210,   'Prendiamo e portiamo il prosciutto di Sicilia'], 
+            [212,   'Qui da noi, la botique del pesce'], 
+            [214,   'Solo qua questi piaceri ve li potete passare'], 
+            [220,   'Ragazzi, per finire vi facciamo vedere'],
+            [222,   'La pasticceria delle sarde'], 
+            [224,   'Prima, ragazzi, prima, prima'], 
+            [231,   'Prima e dopo, e dopo'], 
+            [234,   'Uno e DUE!'], 
+            [236,   'Poi in un attimo'], 
+            [238,   'Prima e dopo, ragazzi'],
+            [240,   'Direttamente'], 
+            [243,   'Adesso vi saluto a tutti quanti'], 
+            [248,   'Direttamente, venite da noi'], 
+            [251,   'Ragazzi, DIRETTAMENTE'], 
+            [253,   'Questi pesci direttamente in padella'], 
+            [255,   'Dalla bottega del pesce, insieme a voi'], 
+            [258,   'Direttamente, da Rosario'], 
+            [260,   'Pesce dalla botique del pesce'],
+            [261,   'Una buona giornata ragazzi']
+        ]
+
+        // 1:50
+
+        const displayQuotes = () => {
+            const $quoteLabel = document.getElementById('quote');
+            quotes.forEach(quote => {
+                const q = quote[1];
+                const s = quote[0];
+                setTimeout(() => $quoteLabel.innerHTML = q, s * 1000);
+            });
+        }
+
+
+        const $player = document.getElementById('player');
+        $player.addEventListener('play', (event) => displayQuotes());
+
+    </script>
 
 </body>
 
